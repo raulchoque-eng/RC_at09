@@ -18,7 +18,13 @@ Vagrant.configure('2') do |config|
   end
   
   config.vm.define 'linux-server-1' do |s|
-	s.vm.provision "shell", path: "install_jenkins.sh"
+	s.vm.provision "shell", inline: "mkdir /home/ubuntu/jenkins_home; chown -R ubuntu:ubuntu /home/ubuntu/jenkins_home"
+	s.vm.provision "docker" do |d|
+	  d.pull_images "registry.jala.info/devops/jenkins/jenkins:2.150.3-alpine"
+	  d.run "jenkins",
+		image: "registry.jala.info/devops/jenkins/jenkins:2.150.3-alpine",
+		args: "-p 80:8080 -p 50000:50000 -d -v /home/ubuntu/jenkins_home:/var/jenkins_home"
+	end
 	s.vm.provider :openstack do |os, override|
 	  os.server_name = "AT09#{ENV['OS_INITIAL_NAME']}01"
       os.flavor = ENV['OS_FLAVOR']

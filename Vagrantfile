@@ -19,15 +19,14 @@ Vagrant.configure('2') do |config|
   
   config.vm.define 'linux-server-1' do |s|
 	s.vm.provision "shell", inline: "mkdir /home/ubuntu/jenkins_home; chown -R ubuntu:ubuntu /home/ubuntu/jenkins_home"
-	s.vm.provision "docker" do |d|
-	  d.pull_images "registry.jala.info/devops/jenkins/jenkins:2.150.3-alpine"
-	  d.run "jenkins",
-		image: "registry.jala.info/devops/jenkins/jenkins:2.150.3-alpine",
-		args: "-p 80:8080 -p 50000:50000 -d -v /home/ubuntu/jenkins_home:/var/jenkins_home"
-	end
+	s.vm.provision "shell", inline: "mkdir /home/ubuntu/docker; chown -R ubuntu:ubuntu /home/ubuntu/docker"
+	s.vm.provision "docker"
+	s.vm.provision "docker_compose", compose_version:'1.23.2'
+	s.vm.provision "file", source: "docker-compose.yml", destination: "/home/ubuntu/docker/docker-compose.yml"
+	s.vm.provision "shell", inline: "cd /home/ubuntu/docker; docker-compose up"
 	s.vm.provider :openstack do |os, override|
 	  os.server_name = "AT09#{ENV['OS_INITIAL_NAME']}01"
-      os.flavor = ENV['OS_FLAVOR']
+          os.flavor = ENV['OS_FLAVOR']
 	  override.vm.synced_folder '.', '/vagrant', disabled: true
 	end  
   end

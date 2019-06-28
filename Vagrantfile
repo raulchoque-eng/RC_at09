@@ -21,9 +21,8 @@ Vagrant.configure('2') do |config|
     s.vm.provision "shell", inline: "mkdir /home/ubuntu/jenkins_home; chown -R ubuntu:ubuntu /home/ubuntu/jenkins_home"
     s.vm.provision "shell", inline: "mkdir /home/ubuntu/docker; chown -R ubuntu:ubuntu /home/ubuntu/docker"
     s.vm.provision "docker"
-    s.vm.provision "docker_compose", compose_version:'1.23.2'
     s.vm.provision "file", source: "docker-compose.yml", destination: "/home/ubuntu/docker/docker-compose.yml"
-    s.vm.provision "shell", inline: "cd /home/ubuntu/docker; docker-compose up"
+    s.vm.provision "docker_compose", compose_version: "1.23.2", yml: "/home/ubuntu/docker/docker-compose.yml", run: "always"
     s.vm.provider :openstack do |os, override|
       os.server_name = "AT09#{ENV['OS_INITIAL_NAME']}01"
       os.flavor = ENV['OS_FLAVOR']

@@ -32,3 +32,15 @@ uploadArchives {
        }
     }
 }
+
+task task1 {
+    doLast {
+        println "This is a new task."
+    }
+}
+
+task task2 (dependsOn: 'task1') {
+    doLast {
+        println "This is another task."
+    }
+}

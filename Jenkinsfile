@@ -6,8 +6,9 @@ pipeline {
             steps {
                 sh './quickstart/gradlew assemble -p quickstart/'
                 archiveArtifacts 'quickstart/build/libs/*.jar'
+            }
         }
-        stage('Test') {
+        stage('Test Unit') {
             parallel {
                 state('Test 1') {
                     steps {

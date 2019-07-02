@@ -7,10 +7,10 @@ pipeline {
                 sh './quickstart/gradlew assemble -p quickstart/'
                 archiveArtifacts 'quickstart/build/libs/*.jar'
             }
-        }
+        }        
         stage('Test Unit') {
             parallel {
-                state('Test 1') {
+                stage('Test 1') {                    
                     steps {
                         echo 'test 1'
                         sh './quickstart/gradlew test -p quickstart/'
@@ -20,16 +20,16 @@ pipeline {
                             junit "quiskstart/build.test/result/test/*.xml"
                             archiveArtifacts 'quickstart/build/reports/tests/test/*'
                         }
-                    }             
+                    }
                 }
-                state('Test 2') {
+                stage('Test 2') {                        
                     steps {
                         echo 'test 2'
                         sh './quickstart/gradlew test -p quickstart/'
-                    }                    
+                    }
                 }
             }
-        }
+        }    
         stage('Deploy') {
             steps {
                 echo 'Deploying....'

@@ -41,6 +41,6 @@ pipeline {
         }
     }
     post{
-        sh 'emailext body: '', subject: 'Test Jenkins', to: 'raul.choque@fundacion-jala.org''
+        sh "emailext body: '', subject: 'Test Jenkins', to: 'raul.choque@fundacion-jala.org'"
     }
 }

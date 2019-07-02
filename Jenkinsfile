@@ -34,13 +34,19 @@ pipeline {
             steps {
                 echo 'Deploying....'
             }
-        }    
+        } 
+        stage('Code Analysis') {
+            steps {
+                echo 'Execute code analysis....'
+                sh './quickstart/gradlew check -p quickstart/'
+            }            
+        }   
     }
     post {
         always {
             mail to: 'raul.choque@fundacion-jala.org',
-                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                 body: "Something is wrong with ${env.BUILD_URL}"
+                 subject: "Successfull Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
         }
     }
 }

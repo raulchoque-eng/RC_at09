@@ -38,7 +38,7 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 echo 'Execute code analysis....'
-                sh 'gradle check'
+                sh './quickstart/gradlew check -p quickstart/'
             }            
         }
     }

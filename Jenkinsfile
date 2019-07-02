@@ -34,13 +34,7 @@ pipeline {
             steps {
                 echo 'Deploying....'
             }
-        }
-        // stage('Code Analysis') {
-        //     steps {
-        //         echo 'Execute code analysis....'
-        //         sh './quickstart/gradlew check -p quickstart/'
-        //     }            
-        // }
+        }    
     }
     post {
         failure {

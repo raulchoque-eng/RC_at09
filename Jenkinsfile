@@ -35,5 +35,12 @@ pipeline {
                 echo 'Deploying....'
             }
         }
+        stage('Code Analysis') {
+            echo 'Execute code analysis....'
+            sh 'gradle check'
+        }
+    }
+    post{
+        sh 'emailext body: '', subject: 'Test Jenkins', to: 'raul.choque@fundacion-jala.org''
     }
 }

@@ -37,7 +37,7 @@ pipeline {
         }    
     }
     post {
-        failure {
+        always {
             mail to: 'raul.choque@fundacion-jala.org',
                  subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
                  body: "Something is wrong with ${env.BUILD_URL}"

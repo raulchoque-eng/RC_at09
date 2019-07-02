@@ -6,9 +6,6 @@ plugins {
 }
 
 apply plugin: 'java'
-apply plugin: 'checkstyle'
-apply plugin: 'pmd'
-apply plugin: 'findbugs'
 
 version = '1.0'
 jar {

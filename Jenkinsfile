@@ -36,8 +36,10 @@ pipeline {
             }
         }
         stage('Code Analysis') {
-            echo 'Execute code analysis....'
-            sh 'gradle check'
+            steps {
+                echo 'Execute code analysis....'
+                sh 'gradle check'
+            }            
         }
     }
     post{

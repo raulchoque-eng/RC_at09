@@ -35,18 +35,18 @@ pipeline {
                 echo 'Deploying....'
             }
         } 
-    //     stage('Code Analysis') {
-    //         steps {
-    //             echo 'Execute code analysis....'
-    //             sh './quickstart/gradlew check -p quickstart/'
-    //         }            
-    //     }   
-    // }
-    // post {
-    //     always {
-    //         mail to: 'raul.choque@fundacion-jala.org',
-    //              subject: "Successfull Pipeline: ${currentBuild.fullDisplayName}",
-    //              body: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
-    //     }
-    // }
+        stage('Code Analysis') {
+            steps {
+                echo 'Execute code analysis....'
+                sh './quickstart/gradlew check -p quickstart/'
+            }            
+        }   
+    }
+    post {
+        always {
+            mail to: 'raul.choque@fundacion-jala.org',
+                 subject: "Successfull Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
+        }
+    }
 }

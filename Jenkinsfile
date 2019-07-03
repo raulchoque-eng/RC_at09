@@ -40,6 +40,12 @@ pipeline {
                 echo 'Execute code analysis....'
                 sh './quickstart/gradlew check -p quickstart/'
             }            
+        }
+        stage('SonarQube') {
+            steps {
+                echo 'Execute SonarQube'
+                sh './quickstart/gradlew sonarqube -p quickstart/'
+            }            
         }   
     }
     post {

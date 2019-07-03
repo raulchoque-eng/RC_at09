@@ -3,6 +3,7 @@ plugins {
     id 'checkstyle'
     id 'pmd'
     id 'findbugs'
+    id "org.sonarqube" version "2.7"
 }
 
 apply plugin: 'java'
